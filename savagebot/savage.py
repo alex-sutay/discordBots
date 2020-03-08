@@ -5,8 +5,8 @@ file: chartle.py
 
 import discord
 from deckman import *
+from config import TOKEN
 
-TOKEN='NjU3NjM3NzkxOTk5NzIxNDky.Xf0Hqg.KMrFj5eJfphqFLpx0Zjt220euV0'
 client=discord.Client()
 
 @client.event
