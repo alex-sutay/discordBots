@@ -4,8 +4,8 @@ file: betbot.py
 """
 
 import discord
+from config import TOKEN
 
-TOKEN = 'Njg0OTg2OTQ5NDMzMjk0ODcz.XmCF6w.cn4zgRaV4lceDeTK-O0u0o_UfC0'
 client = discord.Client()
 
 
