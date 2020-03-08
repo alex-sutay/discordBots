@@ -1,0 +1,37 @@
+"""
+author: Alex Sutay
+file: betbot.py
+"""
+
+import discord
+
+TOKEN = 'Njg0OTg2OTQ5NDMzMjk0ODcz.XmCF6w.cn4zgRaV4lceDeTK-O0u0o_UfC0'
+client = discord.Client()
+
+
+@client.event
+async def on_message(message):
+    channel = message.channel
+    content = message.content
+
+    # if the bot sent the message, ignore it
+    if message.author == client.user:
+        return
+
+    # If the message contains "bet", react with bet
+    content = content.split()
+    for item in content:
+        item = item.lower()
+        item = item.translate({ord('*'): None})
+        if item == "bet":
+            emoji = await message.guild.fetch_emoji(684988702954749974)
+            await message.add_reaction(emoji)
+
+@client.event
+async def on_ready():
+    print("Logged in as")
+    print(client.user.name)
+    print(client.user.id)
+
+
+client.run(TOKEN)
