@@ -5,8 +5,8 @@ file: chartle.py
 
 import discord
 from data_manage import total_current, add_entry, find_average, add_to_current, scores_str, remove_last_input
+from config import TOKEN
 
-TOKEN = 'NjQ2ODIwNTg1NTQ0MDg5NjEx.XdWssg.yxwhV7MV7wM36Z8cfNkSlmCwMqg'
 client = discord.Client()
 
 
