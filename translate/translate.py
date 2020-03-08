@@ -6,8 +6,8 @@ file: chartle.py
 import discord
 from googletrans import Translator
 translator = Translator()
+from config import TOKEN
 
-TOKEN = 'NjU0NzE2NjY0MzczMzEzNTQ3.XfJnHA.aDu33bg5m1um98euYw5FyUnXna4'
 client = discord.Client()
 
 
