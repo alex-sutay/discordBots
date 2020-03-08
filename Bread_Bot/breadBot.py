@@ -8,9 +8,8 @@ import asyncio
 from datetime import datetime
 import urllib.request
 import random
+from config import TOKEN
 
-
-TOKEN = "NjQ2NzI1ODg3MDQ3MzY4NzA1.Xda1qQ.JHkARGtq1gM2zHi1s9Ha-rNYcIc"
 client = discord.Client()
 
 
