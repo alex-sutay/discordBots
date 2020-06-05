@@ -44,43 +44,43 @@ async def on_ready():
 
 
 def get_bread():
-        fp = urllib.request.urlopen("https://en.wikipedia.org/wiki/List_of_breads")
-        mybytes = fp.read()
-        mystr = mybytes.decode("utf8")
-        fp.close()
-        index1 = mystr.find('<tbody>')
-        index2 = mystr.find('</tbody>')
-        if index1 > 0:
-            # isolate the table
-            mystr = mystr[index1 + 7:index2]
+    fp = urllib.request.urlopen("https://en.wikipedia.org/wiki/List_of_breads")
+    mybytes = fp.read()
+    mystr = mybytes.decode("utf8")
+    fp.close()
+    index1 = mystr.find('<tbody>')
+    index2 = mystr.find('</tbody>')
+    if index1 > 0:
+        # isolate the table
+        mystr = mystr[index1 + 7:index2]
 
-            # remove header row
-            index1 = mystr.find("</tr>")
-            mystr = mystr[index1 + 6:]
+        # remove header row
+        index1 = mystr.find("</tr>")
+        mystr = mystr[index1 + 6:]
 
-            # divide the the table into rows
-            mystr = mystr.split('<tr>')
+        # divide the the table into rows
+        mystr = mystr.split('<tr>')
 
-            # pick a random row and remove it
-            rand = random.randint(0, len(mystr) - 1)
-            row = mystr[rand]
+        # pick a random row and remove it
+        rand = random.randint(0, len(mystr) - 1)
+        row = mystr[rand]
 
-            # find and remove the name of the bread
-            name_index1 = row.find('">') + 2
-            name_index2 = row.find('</a>')
-            bread_name = row[name_index1:name_index2]
+        # find and remove the name of the bread
+        name_index1 = row.find('">') + 2
+        name_index2 = row.find('</a>')
+        bread_name = row[name_index1:name_index2]
 
-            # find and save the link
-            bread_link = 'https://en.wikipedia.org/'
-            link_index1 = row.find('wiki')
-            link_index2 = row.find('" ')
-            bread_link += row[link_index1:link_index2]
+        # find and save the link
+        bread_link = 'https://en.wikipedia.org/'
+        link_index1 = row.find('wiki')
+        link_index2 = row.find('" ')
+        bread_link += row[link_index1:link_index2]
 
-            # create the final message and send it
-            msg = "Good morning everyone! Rise and grind, let's get this bread. Today's bread is "
-            msg += bread_name + '!\n('
-            msg += bread_link + ')'
-            return msg
+        # create the final message and send it
+        msg = "Good morning everyone! Rise and grind, let's get this bread. Today's bread is "
+        msg += bread_name + '!\n('
+        msg += bread_link + ')'
+        return msg
 
 
 client.run(TOKEN)
