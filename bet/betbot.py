@@ -26,6 +26,8 @@ async def on_message(message):
         if item == "bet":
             emoji = await message.guild.fetch_emoji(684988702954749974)
             await message.add_reaction(emoji)
+            await channel.send("bet", tts=True)
+
 
 @client.event
 async def on_ready():
