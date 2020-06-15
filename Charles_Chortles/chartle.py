@@ -5,7 +5,7 @@ file: chartle.py
 
 import discord
 from data_manage import total_current, add_entry, find_average, add_to_current, scores_str, \
-    remove_last_input, set_current, AuthorException
+    remove_last_input, set_current, AuthorException, get_current
 from config import TOKEN
 
 client = discord.Client()
@@ -43,12 +43,18 @@ async def on_message(message):
 
         # if the message says "!remove", remove an image instance
         elif text.startswith("!remove"):
-            remove_last_input()
-            await channel.send("Removed the most recent score.")
+            # remove_last_input()
+            # await channel.send("Removed the most recent score.")
+            await channel.send("Currently under maintenance. Bug me and I might fix this.")
 
         elif message.content == "!average":
             average = find_average()
-            await channel.send("The current average score is: "+str(average))
+            current = get_current()
+            await channel.send("The current average score for" + current + " is: "+str(average))
+
+        elif message.content == "!current":
+            current = get_current()
+            await channel.send("The current user is " + current)
 
         # if the message starts with "+", take that as a command adding to the score
         elif message.content.startswith('+'):
