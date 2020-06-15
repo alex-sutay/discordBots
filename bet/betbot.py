@@ -21,6 +21,8 @@ async def on_message(message):
     # If the message contains "bet", react with bet
     content = content.split()
     for item in content:
+        if "Β" in item or "Ε" in item:
+            item = "bet"
         item = item.lower()
         item = item.translate({ord('*'): None})
         if item == "bet":
