@@ -34,7 +34,8 @@ async def on_ready():
     while True:
         now = datetime.now()
         hour = int(now.strftime("%H"))
-        if hour == 8:
+        minute = int(now.strftime("%M"))
+        if hour == 6 and minute == 30:
             # unleash the bread
             bread_message = get_bread()
             await channel.send(bread_message)
