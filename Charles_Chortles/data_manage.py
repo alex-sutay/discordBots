@@ -44,11 +44,13 @@ def find_average():
     score = 0
     f = open(get_filename())
     for line in f:
-        total_num += 1
         line = line.split(',')
         for item in line:
             item = item.split(':')
-            score += float(item[1])
+            this_score = float(item[1])
+            if this_score != 0:
+                score += this_score
+                total_num += 1
     f.close()
     total_num -= 1
     return score/total_num
@@ -135,12 +137,16 @@ def remove_last_input():
 
 def set_current(author):
     f = open("current", 'w')
-    f.write(str(author)[-5:])
+    f.write(str(author))
     f.close()
     add_entry()
 
 
 def get_filename():
+    return get_current()[-5:]
+
+
+def get_current():
     f = open("current")
     rtnstr = f.read()
     f.close()
