@@ -37,9 +37,11 @@ async def on_ready():
         minute = int(now.strftime("%M"))
         if hour == 6 and minute == 30:
             # unleash the bread
-            bread_message = get_bread()
-            await channel.send(bread_message)
-            await asyncio.sleep(3600)
+            history = await channel.history(limit=1).flatten()
+            if history[0].author != client.user:
+                bread_message = get_bread()
+                await channel.send(bread_message)
+                await asyncio.sleep(3600)
         else:
             await asyncio.sleep(60)
 
