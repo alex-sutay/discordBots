@@ -4,39 +4,46 @@ file: ttrpg_manage_bot.py
 """
 
 import discord
-from .config import TOKEN
-from .data_manage import get_key_char
+from ttrpg_manager.config import TOKEN
+from ttrpg_manager.data_manage import *
 
 
 client = discord.Client()
 
 
 # Functions called from the CMDs dict. They all take the message object that called them as a parameter
-def cmd_help(msg):
+async def cmd_help(msg):
     """
     Private message the person who asked for help
     :param msg: the Message object that triggered this command
     :return: None
     """
-    msg.channel.send("A help message will exist here eventually!")
+    await msg.channel.send("A help message will exist here eventually!")
 
 
-def cmd_set_key(msg):
+async def cmd_set_key(msg):
     """
     Change the key character for the guild that the message was sent in
     :param msg: the Message object that triggered this command
     :return: None
     """
-    msg.channel.send("This will eventually let you change the \"Key Character\" (!)")
+    if len(msg.content.split(' ')) > 1:
+        key_char = msg.content.split(' ')[1]
+        set_key_char(msg.guild, key_char)
+        await msg.channel.send("Key character updated! Your key character is now: " + key_char)
+    else:
+        await msg.channel.send("Use this command to set the key character for the server! (The character used to tell"
+                               "the bot which messages are commands\n"
+                               "Example: `!key .`")
 
 
-def cmd_create_object(msg):
+async def cmd_create_object(msg):
     """
     Create a new object to be placed in someone's inventory
     :param msg: the Message object that triggered this command
     :return: None
     """
-    msg.channel.send("This will be the command for creating an object")
+    await msg.channel.send("This will be the command for creating an object")
 
 
 CMDs = {"help" : cmd_help,
@@ -62,7 +69,14 @@ async def on_message(message):
     if message.content[0] == key_char:
         key = message.content.split(" ")[0][len(key_char):]  # this grabs the first word minus the key character
         if key in CMDs:
-            CMDs[key](message)
+            await CMDs[key](message)
+
+
+@client.event
+async def on_ready():
+    print("Logged in as")
+    print(client.user.name)
+    print(client.user.id)
 
 
 client.run(TOKEN)
