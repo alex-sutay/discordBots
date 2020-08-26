@@ -43,12 +43,42 @@ async def cmd_create_object(msg):
     :param msg: the Message object that triggered this command
     :return: None
     """
-    await msg.channel.send("This will be the command for creating an object")
+    text = msg.content[msg.content.find(' ')+1:].split(':')  # This removes the command and splits it on the colon
+    item = Item(text[0], text[1], str(msg.author.id))
+    add_new_item(item, str(msg.author.id))
+    await msg.channel.send("Object created!")
 
 
-CMDs = {"help" : cmd_help,
-        "key"  : cmd_set_key,
-        "create" : cmd_create_object,
+async def cmd_display_inventory(msg):
+    """
+    Display your own inventory
+    :param msg: the Message object that triggered this command
+    :return: None
+    """
+    inv = get_inventory(str(msg.author.id))
+    inv_str = ''
+
+    for item_hash in inv:
+        item = inv[item_hash]
+        inv_str += item.title + ', '
+    inv_str = inv_str[:-2]
+
+    await msg.channel.send(msg.author.mention + "'s inventory:\n" + inv_str)
+
+
+async def cmd_destroy_object(msg):
+    """
+
+    :param msg:
+    :return:
+    """
+
+
+CMDs = {"help"    : cmd_help,
+        "key"     : cmd_set_key,
+        "create"  : cmd_create_object,
+        "inv"     : cmd_display_inventory,
+        "destroy" : cmd_destroy_object,
         }
 
 
@@ -69,7 +99,10 @@ async def on_message(message):
     if message.content[0] == key_char:
         key = message.content.split(" ")[0][len(key_char):]  # this grabs the first word minus the key character
         if key in CMDs:
-            await CMDs[key](message)
+            try:
+                await CMDs[key](message)
+            except Exception as e:
+                await message.channel.send("Whoops, something went wrong:\n" + str(e))
 
 
 @client.event
