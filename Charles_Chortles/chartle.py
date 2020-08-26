@@ -4,9 +4,9 @@ file: chartle.py
 """
 
 import discord
-from .data_manage import total_current, add_entry, find_average, add_to_current, scores_str, \
+from Charles_Chortles.data_manage import total_current, add_entry, find_average, add_to_current, scores_str, \
     remove_last_input, set_current, AuthorException, get_current
-from .config import TOKEN
+from Charles_Chortles.config import TOKEN
 
 client = discord.Client()
 

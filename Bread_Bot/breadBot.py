@@ -8,7 +8,7 @@ import asyncio
 from datetime import datetime
 import urllib.request
 import random
-from .config import TOKEN, CHANNEL_ID
+from Bread_Bot.config import TOKEN, CHANNEL_ID
 
 client = discord.Client()
 
