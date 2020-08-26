@@ -4,8 +4,8 @@ file: chartle.py
 """
 
 import discord
-from deckman import *
-from config import TOKEN
+from .deckman import *
+from .config import TOKEN
 
 client=discord.Client()
 
